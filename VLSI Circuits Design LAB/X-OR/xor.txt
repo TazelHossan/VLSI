@@ -1,0 +1,27 @@
+// DSCH 2.6h
+// 6/26/2022 3:15:05 PM
+// C:\Users\CSEJU\Desktop\xor.sch
+
+module xor( in3,in4,out2);
+ input in3,in4;
+ output out2;
+ pmos #(24) pmos(w2,vdd,w1); // 2.0u 0.12u
+ pmos #(24) pmos(w2,vdd,w3); // 2.0u 0.12u
+ pmos #(31) pmos(out2,w2,in3); // 2.0u 0.12u
+ nmos #(31) nmos(out2,w6,in4); // 1.0u 0.12u
+ nmos #(31) nmos(out2,w8,w1); // 1.0u 0.12u
+ nmos #(10) nmos(w6,vss,in3); // 1.0u 0.12u
+ nmos #(10) nmos(w8,vss,w3); // 1.0u 0.12u
+ pmos #(31) pmos(out2,w2,in4); // 2.0u 0.12u
+ not #(17) inv(w3,in3);
+ not #(17) inv(w1,in4);
+endmodule
+
+// Simulation parameters in Verilog Format
+always
+#1000 in3=~in3;
+#2000 in4=~in4;
+
+// Simulation parameters
+// in3 CLK 10 10
+// in4 CLK 20 20
